@@ -5,7 +5,7 @@ use strict;
 use Data::Dumper;
 use Getopt::Long;
 
-use lib '/root/dev/lib';
+use lib 'lib';
 use TelegramBot::Chat;
 
 main();
@@ -29,7 +29,11 @@ sub main
 
     print "Success ! chat_id : $chat->{ chat }->{ id }\n";
 
-    $text and $chat->sendMessage(text => $text);
+    if ($text)
+    {
+        my $send = $chat->sendMessage(text => $text);
+        not $send and die "Error while sending message", $send;
+    }
 
     return;
 }

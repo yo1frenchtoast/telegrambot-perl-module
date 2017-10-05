@@ -31,23 +31,26 @@ sub initiate
 
     $this->{ token } = $token;
     $this->{ chat } = $request->{ result }[0]->{ message }->{ chat };
+
+    return $this;
 }
 
 sub set
 {
     my $this    = shift;
     my %params  = @_;
-
     my $name    = $params{ name } or die "Missing parameter : name\n";
     my $value   = $params{ value } or die "Missing parameter : value\n";
 
     $this->{ $name } = $value;
+    return $this;
 }
 
 sub get
 {
     my $this    = shift;
-    my $name    = @_;
+    my %params  = @_;
+    my $name    = $params{ name } or die "Missing parameter : name\n";
 
     return $this->{ $name };
 }
@@ -88,6 +91,8 @@ sub sendMessage
     my $text  = $params{ text } or die "Missing parameter : text\n";
 
     my $request = $this->request( type => 'sendMessage', text => $text ); 
+
+    return $request;
 }
 
 1;
